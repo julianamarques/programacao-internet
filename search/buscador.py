@@ -3,8 +3,10 @@ import re
 from bs4 import BeautifulSoup
 
 class Search:
-    @staticmethod
-    def recursive_search(url, deep, keyword):
+    def __init__(self):
+        pass
+    
+    def recursive_search(self, url, deep, keyword, search):
         links = []
         links_list = []
 
@@ -19,36 +21,32 @@ class Search:
                 links = soup.find_all("a")
 
                 for l in a:
-                    try:
-                        if (str(l['href']).startswith("http")):
-                            if l["href"] not in links_list:
-                                links_list.append(l["href"])
-                                search(l["href"], keyword)
-                    except:
-                        pass
+                    #try:
+                    if (str(l['href']).startswith("http")):
+                        if l["href"] not in links_list:
+                            links_list.append(l["href"])
+                            search(l["href"], keyword)
+                    #except:
+                    #    pass
 
                 if deep > 0:
                     extract_links(links, deep - 1, keyword)
 
                 return links
 
-
-    @staticmethod
-    def extract_links(links, deep, keyword):
+    def extract_links(self, links, deep, keyword, recursive_search):
         for l in links:
             links.append(recursive_search(l, deep, keyword))
 
         return links
 
-
-    @staticmethod
-    def search(url, keyword):
+    def search(self, url, keyword):
         words_list = []
         response = requests.get(url)
 
         text = BeautifulSoup(response.text, "html.parser").text
 
-        words = re.findall('\w*.{0,10}' + keyword + '.{0,10}\w*', text, re.IGNORECASE)
+        words = re.findall('\w*.{0,10}' + str(keyword) + '.{0,10}\w*', text, re.IGNORECASE)
 
         for w in words:
             words_list.append(w)
@@ -60,8 +58,8 @@ def main():
     url = input("URL: ")
     keyword = input("Keyword : ")
     deep = int(input("Profundidade: "))
-
-    print(recursive_search(url, deep, keyword))
+    search = Search()
+    print(search.recursive_search(url, deep, keyword, search.search(url, deep)))
     
-    if __name__ == '__main__':
-        main()
+if __name__ == '__main__':
+    main()
