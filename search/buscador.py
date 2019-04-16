@@ -9,7 +9,7 @@ class Search:
     def search(self, url, keyword, deep = 0):
         words_list = []
         response = requests.get(url)
-        content = BeautifulSoup(response.text, "html.parser").text
+        content = BeautifulSoup(response.text, "html5lib").text
         words = re.findall(  '\w*.{0,10}' + str(keyword) + '.{0,10}\w*' , content, re.IGNORECASE)
         links = self.extract_links(response)
 
@@ -26,12 +26,12 @@ class Search:
         return words_list
 
     def extract_links(self, response):
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, 'html5lib')
         links = soup.find_all('a')
         links_list = []
 
         for l in links:
-            links_list.append(l["href"])
+       		links_list.append(l["href"])
 
         return links
 
