@@ -29,7 +29,7 @@ class Search:
         links_list = []
 
         soup = BeautifulSoup(response.text, 'html5lib')
-        links = soup.findAll('a')
+        links = soup.findAll('a', attrs={re.compile('(?<=href=["\'])https?://.+?(?=["\'])')})
 
         for l in links:
             if 'href' in l.attrs:
