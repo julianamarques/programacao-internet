@@ -5,10 +5,11 @@ def gerar_arquivo(url):
     arquivo = open("links.txt", "w+")
     response = requests.get(url)
     html = BeautifulSoup(response.text, "html")
-    links_temp = html.find_all("a")
+    links = html.find_all("a")
     links = []
 
     for l in links_temp:
+        arq
         links.append(l.get_text().join("\n"))
 
     arquivo.writelines(links)
