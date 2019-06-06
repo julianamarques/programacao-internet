@@ -4,5 +4,5 @@ from .views import view_index, view_questions
 
 urlpatterns = [
     path('', view_index),
-    path('questions/<int:id>', view_questions),
+    path('question/<int:id>', view_questions),
 ]

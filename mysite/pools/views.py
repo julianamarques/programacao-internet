@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Question
+from .models import Question, Choice
 
 
 def view_index(request):
@@ -10,5 +10,5 @@ def view_index(request):
 
 def view_questions(request, id):
     question = Question.objects.get(id)
-
+    
     return render(request, 'question.html', {'question' : question})

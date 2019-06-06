@@ -1,16 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/>
-    </head>
+{% extends 'base.html' %}
 
-    <body>
-        <ul>
-            {% for question in questions %}
-                <li>
-                    <a> {{question.question_text}} </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </body>
-</html>
+{% block 'content' %}
+
+    <header class="page-header">
+        <h1>Questões</h1>
+    </header>
+
+    <div class="row">
+        <div class="col-md">
+            <table class="table">
+                <thead>
+                    <th scope="col">ID</th>
+                    <th scope="col">Questão</th>
+                </thead>
+                <tbody>
+                    {% for question in questions %}
+                        <tr scope="row">{{ question.id }}</tr>
+                        <tr><a href="question/{{question.id}}">{{ question.question_text }}</a></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
