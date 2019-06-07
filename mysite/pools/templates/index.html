@@ -12,11 +12,23 @@
                 <thead>
                     <th scope="col">ID</th>
                     <th scope="col">Questão</th>
+                    <th scope="col">Resultado</th>
                 </thead>
                 <tbody>
                     {% for question in questions %}
-                        <tr scope="row">{{ question.id }}</tr>
-                        <tr><a href="question/{{question.id}}">{{ question.question_text }}</a></tr>
+                        <tr>
+                            <th scope="row">{{ question.id }}</th>
+                            <td><a href="question/{{question.id}}">{{ question.question_text }}</a></td>
+                            <td>
+                                {%if question.closed%}
+                                    <a href="question/{{question.id}}/result">
+                                        Ver
+                                    </a>
+                                {% else %}
+                                    <span>ABERTA</span>
+                                {% endif %}
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>

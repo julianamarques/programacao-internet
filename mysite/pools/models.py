@@ -10,12 +10,15 @@ class Question(models.Model):
         verbose_name = 'Questão'
         verbose_name_plural = 'Questões'
 
+    def salvar(self):
+        self.save()
+
     def __str__(self):
         return self.question_text
 
 
 class Choice(models.Model):
-    question = models.ForeignKey('Question', on_delete=models.CASCADE)
+    question = models.ManyToManyField('Question', related_name='choices_question')
     choice_text = models.CharField(max_length=255)
     votes = models.IntegerField(default=0)
 

@@ -14,7 +14,7 @@
 
     <ul>
         {% for choice in choices %}
-            <li>{{ choice.choice_text }}</li>
+            <li>{{ choice.choice_text }} - {{ choice.votes}} voto{{ votes|pluralize:"s" }}</li>
         {% endfor %}
     </ul>
 
